@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
+import ReactDOM from 'react-dom';
+import Viewer from './components/Viewer';
 import axios from 'axios';
 
 import './App.css';
 
 function App() {
-  const [state, setState] = useState;
+  const [state, setState] = useState();
 
   useEffect(() => {
     axios
-      .get('https://lambda-coin.herokuapp.com/chain')
+      .get('https://muddyminds.herokuapp.com/api/rooms/')
       .then(res => {
         setState(res.data);
       })
@@ -22,6 +24,9 @@ function App() {
   return (
     <div className="App">
       welcome
+     _{Object.keys(state).map(props=> {
+       return <Viewer data={state(props)} key={props}/>
+     })}
     </div>
   );
 }
